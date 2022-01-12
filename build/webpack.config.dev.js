@@ -9,6 +9,7 @@ const PORT = 9000;
 
 module.exports = merge(baseConfig, {
   mode: "development",
+  devtool: "source-map",
 
   devServer: {
     clientLogLevel: "warning",

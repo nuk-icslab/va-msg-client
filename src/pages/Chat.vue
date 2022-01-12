@@ -62,16 +62,37 @@ export default {
       };
     },
   },
+  mounted: function () {
+    // [TODO] setTimeout is a bad idea
+    window.setTimeout(async () => {
+      let groups = [];
+      console.log(this.val_user_id);
+      try {
+        groups = await this.seal.gm.groupGetByUserId(this.val_user_id);
+        groups = groups.map((d) => {
+          return {
+            name: d.valGroupId,
+            active: false,
+          };
+        });
+      } catch (err) {
+        console.log(err);
+      }
+      console.log(groups);
+      this.groups = groups;
+    }, 10);
+  },
   data() {
     return {
-      groups: [
-        { name: "123", active: true },
-        { name: "test", active: false },
-        { name: "test2", active: false },
-        { name: "Cras justo odio", active: false },
-        { name: "Dapibus ac facilisis in", active: false },
-        { name: "Vestibulum at eros", active: false },
-      ],
+      groups: [],
+      // groups: [
+      //   { name: "123", active: true },
+      //   { name: "test", active: false },
+      //   { name: "test2", active: false },
+      //   { name: "Cras justo odio", active: false },
+      //   { name: "Dapibus ac facilisis in", active: false },
+      //   { name: "Vestibulum at eros", active: false },
+      // ],
       visible: true,
       participants: [
         {
@@ -293,6 +314,7 @@ export default {
     },
     onImageSelected(files, message) {},
     onImageClicked(message) {},
+
     async onGroupClick(group_name) {
       for (let i = 0; i < this.groups.length; i++) {
         this.groups[i].active = this.groups[i].name === group_name;

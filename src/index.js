@@ -28,7 +28,7 @@ Vue.mixin({
       val_user_id: "",
     };
   },
-  mounted: async function () {
+  beforeMount: async function () {
     try {
       this.signedIn = await this.seal.im.checkSignedIn();
       this.val_user_id = (await this.seal.im.getProfile())["sub"];

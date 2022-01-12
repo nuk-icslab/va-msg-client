@@ -4,6 +4,7 @@
  */
 import "core-js/stable";
 import "regenerator-runtime/runtime";
+const axios = require("axios");
 
 const SsGroupManagement = require("./openapi/ss_group_management/index.js");
 import seal_config from "./config";
@@ -82,6 +83,23 @@ export default class GroupManagement {
           }
         }
       );
+    });
+  }
+  groupGetByUserId(userId) {
+    return new Promise(async (resolve, reject) => {
+      try {
+        if (userId === "") {
+          resolve([]);
+          return;
+        }
+        let req_str = `${seal_config.base_url}/gm/${userId}`;
+        let response = await axios.get(req_str);
+        response = response.data;
+        resolve(response);
+      } catch (e) {
+        console.log(e);
+        reject(e);
+      }
     });
   }
 }
