@@ -1,5 +1,5 @@
 /* eslint-disable */
-const seal_config = {
+export default {
   base_url: "http://localhost:8080",
   im: {
     client_id: "oidcCLIENT",
@@ -7,5 +7,3 @@ const seal_config = {
     client_secret: "Some_super_secret",
   },
 };
-
-module.exports = seal_config;

@@ -1,0 +1,87 @@
+"use strict";
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports["default"] = void 0;
+
+var _ApiClient = _interopRequireDefault(require("../ApiClient"));
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+/**
+ * The MinorLocationQoS model module.
+ * @module model/MinorLocationQoS
+ * @version 1.1.0-alpha.4
+ */
+var MinorLocationQoS = /*#__PURE__*/function () {
+  /**
+   * Constructs a new <code>MinorLocationQoS</code>.
+   * Contain Minor Location QoS.
+   * @alias module:model/MinorLocationQoS
+   */
+  function MinorLocationQoS() {
+    _classCallCheck(this, MinorLocationQoS);
+
+    MinorLocationQoS.initialize(this);
+  }
+  /**
+   * Initializes the fields of this object.
+   * This method is used by the constructors of any subclasses, in order to implement multiple inheritance (mix-ins).
+   * Only for internal use.
+   */
+
+
+  _createClass(MinorLocationQoS, null, [{
+    key: "initialize",
+    value: function initialize(obj) {}
+    /**
+     * Constructs a <code>MinorLocationQoS</code> from a plain JavaScript object, optionally creating a new instance.
+     * Copies all relevant properties from <code>data</code> to <code>obj</code> if supplied or a new instance if not.
+     * @param {Object} data The plain JavaScript object bearing properties of interest.
+     * @param {module:model/MinorLocationQoS} obj Optional instance to populate.
+     * @return {module:model/MinorLocationQoS} The populated <code>MinorLocationQoS</code> instance.
+     */
+
+  }, {
+    key: "constructFromObject",
+    value: function constructFromObject(data, obj) {
+      if (data) {
+        obj = obj || new MinorLocationQoS();
+
+        if (data.hasOwnProperty('hAccuracy')) {
+          obj['hAccuracy'] = _ApiClient["default"].convertToType(data['hAccuracy'], 'Number');
+        }
+
+        if (data.hasOwnProperty('vAccuracy')) {
+          obj['vAccuracy'] = _ApiClient["default"].convertToType(data['vAccuracy'], 'Number');
+        }
+      }
+
+      return obj;
+    }
+  }]);
+
+  return MinorLocationQoS;
+}();
+/**
+ * Indicates value of accuracy.
+ * @member {Number} hAccuracy
+ */
+
+
+MinorLocationQoS.prototype['hAccuracy'] = undefined;
+/**
+ * Indicates value of accuracy.
+ * @member {Number} vAccuracy
+ */
+
+MinorLocationQoS.prototype['vAccuracy'] = undefined;
+var _default = MinorLocationQoS;
+exports["default"] = _default;
