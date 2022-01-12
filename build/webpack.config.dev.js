@@ -5,7 +5,7 @@ const merge = require('webpack-merge')
 const baseConfig = require('./webpack.config.base')
 
 const HOST = 'localhost'
-const PORT = 8080
+const PORT = 9000
 
 module.exports = merge(baseConfig, {
   mode: 'development',
@@ -23,6 +23,11 @@ module.exports = merge(baseConfig, {
     quiet: true,
     watchOptions: {
       poll: true
+    },
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      //"Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
+      //"Access-Control-Allow-Headers": "X-Requested-With, content-type, Authorization"
     }
   },
 
