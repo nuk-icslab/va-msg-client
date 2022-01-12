@@ -1,3 +1,10 @@
+/*
+ * @babel/polyfill has been deprecated after Babel 7.4.0
+ * The following is the solution from https://babeljs.io/docs/en/babel-polyfill
+ */
+import "core-js/stable";
+import "regenerator-runtime/runtime";
+
 const SsGroupManagement = require("./openapi/ss_group_management/index.js");
 import seal_config from "./config";
 

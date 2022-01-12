@@ -1,12 +1,12 @@
 /* eslint-disable */
-import IdentityManagement from "services/SEAL/IdentityManagement.js";
+import IdentityManagement from "./IdentityManagement.js";
 let mgr = new IdentityManagement();
 
 mgr
   .signinRedirectCallback()
-  .then(function(user) {
+  .then(function (user) {
     window.location.href = "/";
   })
-  .catch(function(err) {
+  .catch(function (err) {
     console.log(err);
   });

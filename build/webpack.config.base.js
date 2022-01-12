@@ -20,16 +20,16 @@ module.exports = {
   },
   entry: {
     index: "./src/index.js",
-    callback: "./src/callback.js",
-    renew: "./src/silent-renew.js",
+    callback: "./src/services/SEAL/im-callback.js",
+    renew: "./src/services/SEAL/im-silent-renew.js",
   },
   module: {
     rules: [
-      {
-        test: /\.(js|vue)$/,
-        use: "eslint-loader",
-        enforce: "pre",
-      },
+      // {
+      //   test: /\.(js|vue)$/,
+      //   use: "eslint-loader",
+      //   enforce: "pre",
+      // },
       {
         test: /\.vue$/,
         use: "vue-loader",

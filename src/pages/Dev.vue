@@ -1,14 +1,7 @@
 <template>
   <!--eslint-disable-->
   <div>
-    <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#/">VueJs</a>
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" @click="mgr.signOut()">Sign out</a>
-        </li>
-      </ul>
-    </nav>
+    
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -26,15 +19,29 @@
                   text-muted
                 "
               >
-                <span>Call API with Axios</span>
+                <span>Group Management</span>
                 <a class="d-flex align-items-center text-muted">
                   <span data-feather="plus-circle"></span>
                 </a>
               </h6>
               <li class="nav-item">
-                <!--<a class="nav-link" @click="getAll('values')" href="#">
+                <!-- <a class="nav-link" @click="getAll('values')" href="#">
                   GetAll
-                </a>-->
+                </a> -->
+                <a
+                  class="nav-link"
+                  @click="groupDocumentsPost('Test GM-C')"
+                  href="#"
+                >
+                  groupDocumentsPost
+                </a>
+                <a
+                  class="nav-link"
+                  @click="groupDocumentsGet('Test GM-C')"
+                  href="#"
+                >
+                  groupDocumentsGet
+                </a>
               </li>
             </ul>
             <h6
@@ -148,25 +155,30 @@
 
 <script>
 /* eslint-disable */
-import Mgr from "../services/SEAL/IdentityManagement";
-//import Api from "../services/ApiService";
+const SsGroupManagement = require("../services/SEAL/openapi/ss_group_management/index.js");
 export default {
   name: "Home",
   data() {
-    return {
-      mgr: new Mgr(),
-      //api: new Api(),
-    };
+    return {};
   },
   methods: {
-    // async getAll(api) {
-    //   let self = this;
-    //   let result = await this.api.getAll(api);
-    //   self.logApi(result);
-    // },
+    groupDocumentsPost: async function (new_group_name) {
+      let new_group = new SsGroupManagement.VALGroupDocument();
+      new_group["valGroupId"] = new_group_name;
+      new_group["members"] = [new SsGroupManagement.ValTargetUe()];
+      new_group["members"][0]["valUserId"] = "ifTNT";
+      let result = await this.seal.gm.groupDocumentsPost(new_group);
+      this.logApi(result);
+    },
+    groupDocumentsGet: async function (group_name) {
+      let result = await this.seal.gm.groupDocumentsGet({
+        valGroupId: group_name,
+      });
+      this.logApi(result);
+    },
     getToken() {
       let self = this;
-      this.mgr.getUser().then(
+      this.seal.im.getUser().then(
         (token) => {
           self.logToken(token);
         },
@@ -177,7 +189,7 @@ export default {
     },
     getTokenId() {
       let self = this;
-      this.mgr.getIdToken().then(
+      this.seal.im.getIdToken().then(
         (tokenId) => {
           self.logToken(tokenId);
         },
@@ -188,7 +200,7 @@ export default {
     },
     getTokenSessionState() {
       let self = this;
-      this.mgr.getSessionState().then(
+      this.seal.im.getSessionState().then(
         (sessionState) => {
           self.logToken(sessionState);
         },
@@ -199,7 +211,7 @@ export default {
     },
     getAccessToken() {
       let self = this;
-      this.mgr.getAcessToken().then(
+      this.seal.im.getAcessToken().then(
         (acessToken) => {
           self.logToken(acessToken);
         },
@@ -210,7 +222,7 @@ export default {
     },
     getTokenScopes() {
       let self = this;
-      this.mgr.getScopes().then(
+      this.seal.im.getScopes().then(
         (scopes) => {
           self.logToken(scopes);
         },
@@ -221,7 +233,7 @@ export default {
     },
     getTokenProfile() {
       let self = this;
-      this.mgr.getProfile().then(
+      this.seal.im.getProfile().then(
         (tokenProfile) => {
           self.logToken(tokenProfile);
         },
@@ -232,7 +244,7 @@ export default {
     },
     renewToken() {
       let self = this;
-      this.mgr.renewToken().then(
+      this.seal.im.renewToken().then(
         (newToken) => {
           self.logToken(newToken);
         },
