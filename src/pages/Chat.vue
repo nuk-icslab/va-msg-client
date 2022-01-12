@@ -84,76 +84,12 @@ export default {
   },
   data() {
     return {
+      group_id: "",
       groups: [],
-      // groups: [
-      //   { name: "123", active: true },
-      //   { name: "test", active: false },
-      //   { name: "test2", active: false },
-      //   { name: "Cras justo odio", active: false },
-      //   { name: "Dapibus ac facilisis in", active: false },
-      //   { name: "Vestibulum at eros", active: false },
-      // ],
       visible: true,
-      participants: [
-        {
-          name: "Arnaldo",
-          id: 1,
-          profilePicture: "",
-        },
-        {
-          name: "José",
-          id: 2,
-          profilePicture: "",
-        },
-      ],
+      participants: [],
 
-      messages: [
-        {
-          content: "received messages",
-          myself: false,
-          participantId: 1,
-          timestamp: {
-            year: 2019,
-            month: 3,
-            day: 5,
-            hour: 20,
-            minute: 10,
-            second: 3,
-            millisecond: 123,
-          },
-          type: "text",
-        },
-        {
-          content: "sent messages",
-          myself: true,
-          participantId: 3,
-          timestamp: {
-            year: 2019,
-            month: 4,
-            day: 5,
-            hour: 19,
-            minute: 10,
-            second: 3,
-            millisecond: 123,
-          },
-          type: "text",
-        },
-        {
-          content: "other received messages",
-          myself: false,
-          participantId: 2,
-          timestamp: {
-            year: 2019,
-            month: 5,
-            day: 5,
-            hour: 10,
-            minute: 10,
-            second: 3,
-            millisecond: 123,
-          },
-          type: "text",
-        },
-      ],
+      messages: [],
       chatTitle: "",
       placeholder: "Type your message",
       colors: {
@@ -188,42 +124,7 @@ export default {
       submitImageIconSize: 25,
       closeButtonIconSize: "20px",
       asyncMode: false,
-      toLoad: [
-        {
-          content: "Hey, John Doe! How are you today?",
-          myself: false,
-          participantId: 2,
-          timestamp: {
-            year: 2011,
-            month: 3,
-            day: 5,
-            hour: 10,
-            minute: 10,
-            second: 3,
-            millisecond: 123,
-          },
-          uploaded: true,
-          viewed: true,
-          type: "text",
-        },
-        {
-          content: "Hey, Adam! I'm feeling really fine this evening.",
-          myself: true,
-          participantId: 3,
-          timestamp: {
-            year: 2010,
-            month: 0,
-            day: 5,
-            hour: 19,
-            minute: 10,
-            second: 3,
-            millisecond: 123,
-          },
-          uploaded: true,
-          viewed: true,
-          type: "text",
-        },
-      ],
+      toLoad: [],
       scrollBottom: {
         messageSent: true,
         messageReceived: true,
@@ -299,7 +200,8 @@ export default {
        * yet to the server you have to add the message into the array
        */
       console.log(message);
-      this.messages.push(message);
+      this.val.obj.publish(this.val_user_id, this.group_id, message);
+      //this.messages.push(message);
 
       /*
        * you can update message state after the server response
@@ -316,12 +218,62 @@ export default {
     onImageClicked(message) {},
 
     async onGroupClick(group_name) {
+      this.val.obj.unsubscribe(this.val_user_id, this.group_id);
+      this.messages = [];
+      this.group_id = group_name;
       for (let i = 0; i < this.groups.length; i++) {
         this.groups[i].active = this.groups[i].name === group_name;
       }
       this.participants = await this.fetchGroupMember(group_name);
+
+      // Subscribe the new group
+      this.val.obj.subscribe(
+        this.val_user_id,
+        this.group_id,
+        this.onMessage.bind(this)
+      );
     },
-    async fetchGroupMember(group_name) {},
+    async fetchGroupMember(group_name) {
+      let group_info = await this.seal.gm.groupDocumentsGroupDocIdGet(
+        group_name
+      );
+
+      console.log("Fetched member list", group_info);
+
+      return group_info["members"].map((member) => {
+        return {
+          name: member["valUserId"],
+          id: member["valUserId"],
+          profilePicture: "",
+        };
+      });
+    },
+    async onMessage(msg) {
+      console.log("[onmessage]", msg);
+      this.messages.push({
+        content: msg["message"],
+        participantId: msg["user_id"],
+        timestamp: msg["time"],
+        uploaded: true,
+        viewed: false,
+        type: "text",
+      });
+      // {
+      //     content: "received messages",
+      //     myself: false,
+      //     participantId: 1,
+      //     timestamp: {
+      //       year: 2019,
+      //       month: 3,
+      //       day: 5,
+      //       hour: 20,
+      //       minute: 10,
+      //       second: 3,
+      //       millisecond: 123,
+      //     },
+      //     type: "text",
+      //   },
+    },
   },
 };
 </script>

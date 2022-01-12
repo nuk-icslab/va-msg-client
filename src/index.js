@@ -14,11 +14,15 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SealIM from "./services/SEAL/IdentityManagement";
 import SealGM from "./services/SEAL/GroupManagement";
+import ObjectClient from "./services/ObjectVAL";
 
 Vue.use(VueRouter);
 Vue.prototype.seal = {
   im: new SealIM(),
   gm: new SealGM(),
+};
+Vue.prototype.val = {
+  obj: new ObjectClient(),
 };
 
 Vue.mixin({

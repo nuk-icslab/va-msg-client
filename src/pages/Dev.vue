@@ -1,7 +1,6 @@
 <template>
   <!--eslint-disable-->
   <div>
-    
     <div class="container-fluid">
       <div class="row">
         <nav class="col-md-2 d-none d-md-block bg-light sidebar">
@@ -166,7 +165,7 @@ export default {
       let new_group = new SsGroupManagement.VALGroupDocument();
       new_group["valGroupId"] = new_group_name;
       new_group["members"] = [new SsGroupManagement.ValTargetUe()];
-      new_group["members"][0]["valUserId"] = "ifTNT";
+      new_group["members"][0]["valUserId"] = this.val_user_id;
       let result = await this.seal.gm.groupDocumentsPost(new_group);
       this.logApi(result);
     },
