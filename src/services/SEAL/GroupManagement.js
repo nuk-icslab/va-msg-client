@@ -1,6 +1,10 @@
 const SsGroupManagement = require("./openapi/ss_group_management/index.js");
 import seal_config from "./config";
 
+// [WARNING] Ignore the self-signed certifications for development
+// Should be remove in the production enviroment
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
 let api_client = new SsGroupManagement.ApiClient(
   `${seal_config.base_url}/ss-gm/v1`
 );

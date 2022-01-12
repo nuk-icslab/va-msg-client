@@ -1,6 +1,6 @@
 /* eslint-disable */
 export default {
-  base_url: "http://localhost:8080",
+  base_url: "https://seal.5gsvc:29549",
   im: {
     client_id: "oidcCLIENT",
     scope: "openid SEAL",
