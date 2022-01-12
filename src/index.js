@@ -1,36 +1,36 @@
 /* eslint-disable */
-import Vue from 'vue'
-import VueRouter from 'vue-router';
-import router from './router'
-import App from './App'
-import 'bootstrap'
-import 'bootstrap/dist/css/bootstrap.min.css'
-import Mgr from './services/SecurityService';
+import Vue from "vue";
+import VueRouter from "vue-router";
+import router from "./router";
+import App from "./App";
+import "bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+import IdentityManagement from "./services/SEAL/IdentityManagement";
 
 Vue.use(VueRouter);
-let mgr = new Mgr();
+let mgr = new IdentityManagement();
 
 new Vue({
-  el: '#app',
+  el: "#app",
   router,
-  render: h => h(App)
-})
+  render: (h) => h(App),
+});
 
 router.beforeEach((to, from, next) => {
-  const requiresAuth = to.matched.some(record => record.meta.requiresAuth);
+  const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
   if (requiresAuth) {
-      mgr.getRole().then(
-        sucess => {
-          if (to.meta.role == sucess){
-            next();
-          }else {
-            next('/accessdenied');
-          }
-        },
-        err => {
-          console.log(err);
+    mgr.getRole().then(
+      (sucess) => {
+        if (to.meta.role == sucess) {
+          next();
+        } else {
+          next("/accessdenied");
         }
-      );    
+      },
+      (err) => {
+        console.log(err);
+      }
+    );
   } else {
     next();
   }
