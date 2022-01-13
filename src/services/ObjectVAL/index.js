@@ -10,6 +10,7 @@ export default class ObjectClient {
     });
     this.socket.on("message", this.onMessage.bind(this));
     this.socket.connect();
+    // [TODO] Enable HTTPS with self-signed certification
     // , {
     //   transports: ["websocket"],
     //   rejectUnauthorized: false,
