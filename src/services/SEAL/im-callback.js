@@ -8,5 +8,5 @@ mgr
     window.location.href = "/";
   })
   .catch(function (err) {
-    console.log(err);
+    console.error(err);
   });

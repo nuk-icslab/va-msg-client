@@ -51,7 +51,7 @@ export default {
         new_group["members"].push(new_val_user);
       }
       let result = await this.seal.gm.groupDocumentsPost(new_group);
-      console.log(result);
+      console.debug(result);
       this.succeed = true;
       window.setTimeout(() => {
         this.succeed = false;

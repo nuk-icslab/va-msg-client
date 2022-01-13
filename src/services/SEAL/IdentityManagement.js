@@ -29,22 +29,22 @@ Oidc.Log.logger = console;
 Oidc.Log.level = Oidc.Log.INFO;
 
 mgr.events.addUserLoaded(function (user) {
-  console.log("New User Loaded：", arguments);
-  console.log("Acess_token: ", user.access_token);
+  console.debug("New User Loaded：", arguments);
+  console.debug("Acess_token: ", user.access_token);
 });
 
 mgr.events.addAccessTokenExpiring(function () {
-  console.log("AccessToken Expiring：", arguments);
+  console.debug("AccessToken Expiring：", arguments);
 });
 
 mgr.events.addAccessTokenExpired(async function () {
-  console.log("AccessToken Expired：", arguments);
+  console.debug("AccessToken Expired：", arguments);
   alert("Session expired. Going out!");
   try {
     let resp = await mgr.signoutRedirect();
-    console.log("signed out", resp);
+    console.debug("signed out", resp);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 });
 
@@ -54,12 +54,12 @@ mgr.events.addSilentRenewError(function () {
 
 mgr.events.addUserSignedOut(async function () {
   alert("Going out!");
-  console.log("UserSignedOut：", arguments);
+  console.debug("UserSignedOut：", arguments);
   try {
     let resp = await mgr.signoutRedirect();
-    console.log("signed out", resp);
+    console.debug("signed out", resp);
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 });
 
@@ -76,7 +76,7 @@ export default class IdentityManagement {
           return resolve(user);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         return reject(err);
       }
     });
@@ -98,7 +98,7 @@ export default class IdentityManagement {
           return resolve(true);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         reject(err);
       }
     });
@@ -109,7 +109,7 @@ export default class IdentityManagement {
     try {
       mgr.signinRedirect();
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 
@@ -117,9 +117,9 @@ export default class IdentityManagement {
   async signOut() {
     try {
       let resp = mgr.signoutRedirect();
-      console.log("signed out", resp);
+      console.debug("signed out", resp);
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   }
 
@@ -134,7 +134,7 @@ export default class IdentityManagement {
           return resolve(user.profile);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         reject(err);
       }
     });
@@ -151,7 +151,7 @@ export default class IdentityManagement {
           return resolve(user.id_token);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         reject(err);
       }
     });
@@ -168,7 +168,7 @@ export default class IdentityManagement {
           return resolve(user.session_state);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         reject(err);
       }
     });
@@ -185,7 +185,7 @@ export default class IdentityManagement {
           return resolve(user.access_token);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         reject(err);
       }
     });
@@ -202,7 +202,7 @@ export default class IdentityManagement {
           return resolve(user.scopes);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         reject(err);
       }
     });
@@ -219,7 +219,7 @@ export default class IdentityManagement {
           return resolve(user.profile.role);
         }
       } catch (err) {
-        console.log(err);
+        console.error(err);
         reject(err);
       }
     });

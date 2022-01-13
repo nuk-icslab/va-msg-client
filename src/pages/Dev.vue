@@ -182,7 +182,7 @@ export default {
           self.logToken(token);
         },
         (err) => {
-          console.log(err);
+          console.error(err);
         }
       );
     },
@@ -193,7 +193,7 @@ export default {
           self.logToken(tokenId);
         },
         (err) => {
-          console.log(err);
+          console.error(err);
         }
       );
     },
@@ -204,7 +204,7 @@ export default {
           self.logToken(sessionState);
         },
         (err) => {
-          console.log(err);
+          console.error(err);
         }
       );
     },
@@ -215,7 +215,7 @@ export default {
           self.logToken(acessToken);
         },
         (err) => {
-          console.log(err);
+          console.error(err);
         }
       );
     },
@@ -226,7 +226,7 @@ export default {
           self.logToken(scopes);
         },
         (err) => {
-          console.log(err);
+          console.error(err);
         }
       );
     },
@@ -237,7 +237,7 @@ export default {
           self.logToken(tokenProfile);
         },
         (err) => {
-          console.log(err);
+          console.error(err);
         }
       );
     },
@@ -248,7 +248,7 @@ export default {
           self.logToken(newToken);
         },
         (err) => {
-          console.log(err);
+          console.error(err);
         }
       );
     },

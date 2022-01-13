@@ -3,6 +3,13 @@
   <div>
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
       <a class="navbar-brand ml-3 mr-auto" role="button" href="#/">
+        <img
+          src="/icon.svg"
+          width="30"
+          height="30"
+          class="d-inline-block align-top"
+          alt=""
+        />
         5G Instant Messaging
       </a>
       <span class="navbar-text disabled" v-if="signedIn">

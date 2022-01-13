@@ -6,7 +6,7 @@ export default class ObjectClient {
     this.subscribe_list = {};
     this.socket = io(config.val_url, { autoConnect: false });
     this.socket.onAny((event, ...args) => {
-      console.log(`[socket.io][${event}]`, args);
+      console.debug(`[socket.io][${event}]`, args);
     });
     this.socket.on("message", this.onMessage.bind(this));
     this.socket.connect();

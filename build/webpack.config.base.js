@@ -17,6 +17,7 @@ module.exports = {
       router: utils.resolve("src/router"),
       services: utils.resolve("src/services"),
     },
+    fallback: { querystring: require.resolve("querystring-es3") },
   },
   entry: {
     index: "./src/index.js",
@@ -93,12 +94,12 @@ module.exports = {
       inject: true,
     }),
     new VueLoaderPlugin(),
-    // new CopyWebpackPlugin([
-    //   {
-    //     from: utils.resolve("static"),
-    //     to: utils.resolve("dist/static"),
-    //     toType: "dir",
-    //   },
-    // ]),
+    new CopyWebpackPlugin([
+      {
+        from: utils.resolve("static"),
+        to: utils.resolve("dist"),
+        toType: "dir",
+      },
+    ]),
   ],
 };

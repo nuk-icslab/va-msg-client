@@ -13,7 +13,7 @@ export default class ApiService {
         axios.defaults.headers.common["Authorization"] = "Bearer " + acessToken;
       },
       (err) => {
-        console.log(err);
+        console.error(err);
       }
     );
   }
@@ -24,7 +24,7 @@ export default class ApiService {
       .get(baseUrl + api)
       .then((response) => response.data)
       .catch((err) => {
-        console.log(err);
+        console.error(err);
       });
   }
 }

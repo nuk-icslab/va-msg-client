@@ -65,21 +65,17 @@ export default {
   mounted: function () {
     // [TODO] setTimeout is a bad idea
     window.setTimeout(async () => {
-      let groups = [];
-      console.log(this.val_user_id);
       try {
-        groups = await this.seal.gm.groupGetByUserId(this.val_user_id);
-        groups = groups.map((d) => {
+        let groups = await this.seal.gm.groupGetByUserId(this.val_user_id);
+        this.groups = groups.map((d) => {
           return {
             name: d.valGroupId,
             active: false,
           };
         });
       } catch (err) {
-        console.log(err);
+        console.error(err);
       }
-      console.log(groups);
-      this.groups = groups;
     }, 10);
   },
   data() {
@@ -199,7 +195,6 @@ export default {
        * It's important to notice that even when your message wasn't send
        * yet to the server you have to add the message into the array
        */
-      console.log(message);
       this.val.obj.publish(this.val_user_id, this.group_id, message);
       //this.messages.push(message);
 
@@ -238,7 +233,7 @@ export default {
         group_name
       );
 
-      console.log("Fetched member list", group_info);
+      console.info("Fetched member list", group_info);
 
       return group_info["members"].map((member) => {
         return {
@@ -249,7 +244,7 @@ export default {
       });
     },
     async onMessage(msg) {
-      console.log("[onmessage]", msg);
+      console.info("[onmessage]", msg);
       this.messages.push({
         content: msg["message"],
         participantId: msg["user_id"],

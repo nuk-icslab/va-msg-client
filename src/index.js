@@ -35,9 +35,12 @@ Vue.mixin({
   beforeMount: async function () {
     try {
       this.signedIn = await this.seal.im.checkSignedIn();
-      this.val_user_id = (await this.seal.im.getProfile())["sub"];
+      let user_profile = await this.seal.im.getProfile();
+      if (user_profile !== null) {
+        this.val_user_id = user_profile["sub"];
+      }
     } catch (err) {
-      console.log(err);
+      console.error(err);
     }
   },
 });
@@ -59,7 +62,7 @@ new Vue({
 //         next("/accessdenied");
 //       }
 //     } catch (err) {
-//       console.log(err);
+//       console.error(err);
 //     }
 //   } else {
 //     next();

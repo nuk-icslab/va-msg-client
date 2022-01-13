@@ -5,6 +5,10 @@ const assert = require("assert");
 import GroupManagement from "../src/services/SEAL/GroupManagement";
 const SsGroupManagement = require("../src/services/SEAL/openapi/ss_group_management/index.js");
 
+// [WARNING] Ignore the self-signed certifications for development
+// Should be remove in the production enviroment
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
 describe("GroupManagement", () => {
   let gm = new GroupManagement();
   let new_group_name = "Test GM-C";
