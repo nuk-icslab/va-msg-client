@@ -12,20 +12,11 @@ module.exports = merge(baseConfig, {
   devtool: "eval-cheap-module-source-map",
 
   devServer: {
-    //clientLogLevel: "warning",
     hot: true,
-    //contentBase: "dist",
     compress: true,
     host: HOST,
     port: PORT,
     open: true,
-    //overlay: { warnings: false, errors: true },
-    //publicPath: "/",
-    //quiet: true,
-    //watch: true,
-    // watchOptions: {
-    //   poll: true,
-    // },
     headers: {
       "Access-Control-Allow-Origin": "*",
       "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, PATCH, OPTIONS",
