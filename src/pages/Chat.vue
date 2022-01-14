@@ -195,7 +195,11 @@ export default {
        * It's important to notice that even when your message wasn't send
        * yet to the server you have to add the message into the array
        */
-      this.val.obj.publish(this.val_user_id, this.group_id, message);
+      let payload = {
+        content: message.content,
+        time: new Date().toISOString(),
+      };
+      this.val.obj.publish(this.group_id, payload);
       //this.messages.push(message);
 
       /*
@@ -213,7 +217,7 @@ export default {
     onImageClicked(message) {},
 
     async onGroupClick(group_name) {
-      this.val.obj.unsubscribe(this.val_user_id, this.group_id);
+      this.val.obj.unsubscribe(this.group_id);
       this.messages = [];
       this.group_id = group_name;
       for (let i = 0; i < this.groups.length; i++) {
@@ -223,7 +227,6 @@ export default {
 
       // Subscribe the new group
       this.val.obj.subscribe(
-        this.val_user_id,
         this.group_id,
         this.onMessage.bind(this)
       );
@@ -243,12 +246,14 @@ export default {
         };
       });
     },
-    async onMessage(msg) {
-      console.info("[onmessage]", msg);
+    async onMessage(data) {
+      console.info("[onmessage]", data);
+      let { user_id, payload } = data;
+      let { time, content } = payload;
       this.messages.push({
-        content: msg["message"],
-        participantId: msg["user_id"],
-        timestamp: msg["time"],
+        content,
+        participantId: user_id,
+        timestamp: time,
         uploaded: true,
         viewed: false,
         type: "text",
