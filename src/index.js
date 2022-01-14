@@ -38,6 +38,7 @@ Vue.mixin({
       let user_profile = await this.seal.im.getProfile();
       if (user_profile !== null) {
         this.val_user_id = user_profile["sub"];
+        this.val.obj.connect(await this.seal.im.getAcessToken());
       }
     } catch (err) {
       console.error(err);

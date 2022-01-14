@@ -4,17 +4,24 @@ import config from "./config";
 export default class ObjectClient {
   constructor() {
     this.subscribe_list = {};
-    this.socket = io(config.val_url, { autoConnect: false });
+    this.socket = io(config.val_url, {
+      autoConnect: false,
+    });
     this.socket.onAny((event, ...args) => {
       console.debug(`[socket.io][${event}]`, args);
     });
     this.socket.on("message", this.onMessage.bind(this));
-    this.socket.connect();
+
     // [TODO] Enable HTTPS with self-signed certification
     // , {
     //   transports: ["websocket"],
     //   rejectUnauthorized: false,
     // }
+  }
+  connect(access_token) {
+    this.access_token = access_token;
+    this.socket.auth = { access_token };
+    this.socket.connect();
   }
   onMessage(msg) {
     let { group_id } = msg;
