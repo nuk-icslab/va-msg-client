@@ -16,8 +16,15 @@ export default class ObjectClient {
     });
     this.socket.io.on("reconnect", () => {
       // Subscribe again when reconnected
+      console.info("VAL reconnected.");
       for (let group_id in this.subscribe_list) {
-        this.subscribe(group_id, this.subscribe_list[group_id]);
+        console.info(`  Subscribe to channel ${group_id}`);
+        // If we emit an event immediately after reconnecting, it will be lost.
+        // My guess is the corresponding handler has not been registered on the server.
+        // [TODO] setTimeout is a bad solution
+        window.setTimeout(() => {
+          this.subscribe(group_id, null);
+        }, 100);
       }
     });
 
@@ -40,16 +47,16 @@ export default class ObjectClient {
     }
   }
   subscribe(group_id, callback) {
-    this.subscribe_list[group_id] = callback;
-    this.socket.emit("subscribe", { user_id: this.user_id, group_id });
+    if (callback !== null) this.subscribe_list[group_id] = callback;
+    this.socket.emit("subscribe", { group_id });
   }
   unsubscribe(group_id) {
+    if (group_id === "") return;
     delete this.subscribe_list[group_id];
-    this.socket.emit("unsubscribe", { user_id: this.user_id, group_id });
+    this.socket.emit("unsubscribe", { group_id });
   }
   publish(group_id, payload) {
     this.socket.emit("message", {
-      user_id: this.user_id,
       group_id,
       payload,
     });
