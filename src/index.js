@@ -14,7 +14,7 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SealIM from "./services/SEAL/IdentityManagement";
 import SealGM from "./services/SEAL/GroupManagement";
-import ObjectClient from "./services/ObjectVAL";
+import ChannelClient from "./services/ChannelVAL";
 
 Vue.use(VueRouter);
 Vue.prototype.seal = {
@@ -22,7 +22,7 @@ Vue.prototype.seal = {
   gm: new SealGM(),
 };
 Vue.prototype.val = {
-  obj: new ObjectClient(),
+  ch: new ChannelClient(),
 };
 
 Vue.mixin({
@@ -38,7 +38,7 @@ Vue.mixin({
       let user_profile = await this.seal.im.getProfile();
       if (user_profile !== null) {
         this.val_user_id = user_profile["sub"];
-        this.val.obj.connect(
+        this.val.ch.connect(
           await this.seal.im.getAcessToken(),
           this.val_user_id
         );

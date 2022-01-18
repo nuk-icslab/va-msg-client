@@ -199,7 +199,7 @@ export default {
         content: message.content,
         time: new Date().toISOString(),
       };
-      this.val.obj.publish(this.group_id, payload);
+      this.val.ch.publish(this.group_id, payload);
       //this.messages.push(message);
 
       /*
@@ -217,7 +217,7 @@ export default {
     onImageClicked(message) {},
 
     async onGroupClick(group_name) {
-      this.val.obj.unsubscribe(this.group_id);
+      this.val.ch.unsubscribe(this.group_id);
       this.messages = [];
       this.group_id = group_name;
       for (let i = 0; i < this.groups.length; i++) {
@@ -226,10 +226,7 @@ export default {
       this.participants = await this.fetchGroupMember(group_name);
 
       // Subscribe the new group
-      this.val.obj.subscribe(
-        this.group_id,
-        this.onMessage.bind(this)
-      );
+      this.val.ch.subscribe(this.group_id, this.onMessage.bind(this));
     },
     async fetchGroupMember(group_name) {
       let group_info = await this.seal.gm.groupDocumentsGroupDocIdGet(
