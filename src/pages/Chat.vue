@@ -67,10 +67,10 @@ export default {
     window.setTimeout(async () => {
       try {
         let groups = await this.seal.gm.groupGetByUserId(this.val_user_id);
-        this.groups = groups.map((d) => {
+        this.groups = groups.map((d, i) => {
           return {
             name: d.valGroupId,
-            active: false,
+            active: i === 0,
           };
         });
       } catch (err) {
