@@ -1,6 +1,6 @@
 {
   "name": "va-msg-client",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "A demo repository to illustrate the usage of SEAL/VAL framework for 5G vertical application.",
   "main": "src/index.js",
   "scripts": {

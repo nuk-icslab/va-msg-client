@@ -4,6 +4,7 @@ A demo repository to illustrate the usage of SEAL/VAL framework for 5G vertical 
 Based on an awesome project [joaojosefilho/vuejsOidcClient](https://github.com/joaojosefilho/vuejsOidcClient)
 
 ## Features
+
 - 3GPP Service Enabler Architecture Layer (SEAL)
   - Client library of Identity Management (IM)
   - Client library of Group Management (GM)
@@ -21,25 +22,33 @@ Based on an awesome project [joaojosefilho/vuejsOidcClient](https://github.com/j
   - Clients can push messages to other’s VAL inbox and its VAL group inbox
 
 ## Installation
+
 - Install [Node.js](https://nodejs.org/en/) first
 - Then, execute the following command
+
 ```bash
 npm install
 ```
 
 ## Usage
+
 ### For Development
+
 ```bash
 npm run dev
 ```
-- Then you can access `http://localhost:9000/`
+
+- Then you can access `https://localhost/`
 
 ### For Production
+
 ```
 npm run prod
 ```
+
 - The bundled files will be placed at `/dist` directory
 - Use webserver to host these files
 
 ## Configuration
+
 - The config file of SEAL module located in `/src/services/SEAL/config.js`
