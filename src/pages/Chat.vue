@@ -67,12 +67,15 @@ export default {
     window.setTimeout(async () => {
       try {
         let groups = await this.seal.gm.groupGetByUserId(this.val_user_id);
-        this.groups = groups.map((d, i) => {
+        this.groups = groups.map((d) => {
           return {
             name: d.valGroupId,
-            active: i === 0,
+            active: false,
           };
         });
+        if (this.groups.length !== 0) {
+          this.onGroupClick(this.groups[0].name);
+        }
       } catch (err) {
         console.error(err);
       }
@@ -217,7 +220,9 @@ export default {
     onImageClicked(message) {},
 
     async onGroupClick(group_name) {
-      this.val.ch.unsubscribe(this.group_id);
+      if (this.group_id !== "") {
+        this.val.ch.unsubscribe(this.group_id);
+      }
       this.messages = [];
       this.group_id = group_name;
       for (let i = 0; i < this.groups.length; i++) {
