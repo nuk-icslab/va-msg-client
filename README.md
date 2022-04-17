@@ -43,7 +43,7 @@ npm run dev
 ### For Production
 
 ```
-npm run prod
+npm run build
 ```
 
 - The bundled files will be placed at `/dist` directory

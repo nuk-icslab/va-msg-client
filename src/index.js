@@ -14,12 +14,14 @@ import "bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
 import SealIM from "./services/SEAL/IdentityManagement";
 import SealGM from "./services/SEAL/GroupManagement";
+import SealLM from "./services/SEAL/LocationManagement";
 import ChannelClient from "./services/ChannelVAL";
 
 Vue.use(VueRouter);
 Vue.prototype.seal = {
   im: new SealIM(),
   gm: new SealGM(),
+  lm: new SealLM(),
 };
 Vue.prototype.val = {
   ch: new ChannelClient(),
@@ -42,6 +44,7 @@ Vue.mixin({
           await this.seal.im.getAcessToken(),
           this.val_user_id
         );
+        this.seal.lm.init(this.val_user_id);
       }
     } catch (err) {
       console.error(err);
