@@ -88,7 +88,7 @@ export default class GroupManagement {
           resolve([]);
           return;
         }
-        let req_str = `${seal_config.base_url}/custom-gm/groups/${userId}`;
+        let req_str = `${seal_config.base_url}/ss-gmuu/v1/${userId}/group-list-fetch`;
         let response = await axios.get(req_str);
         response = response.data;
         resolve(response);
