@@ -25,7 +25,7 @@ export default class LocationManagement {
   async watchLocation(pos) {
     let lat = pos.coords.latitude;
     let lng = pos.coords.longitude;
-    let req_str = `${seal_config.base_url}/ss-lm/location/${this.userId}`;
+    let req_str = `${seal_config.base_url}/ss-lm/v1/location/${this.userId}`;
     let response = await axios.post(req_str, {
       lng,
       lat,

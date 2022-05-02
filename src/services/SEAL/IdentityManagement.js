@@ -10,7 +10,7 @@ import seal_config from "./config";
 
 var mgr = new Oidc.UserManager({
   userStore: new Oidc.WebStorageStateStore(),
-  authority: `${seal_config.base_url}/oidc`,
+  authority: `${seal_config.base_url}/oidc/v1`,
   client_id: seal_config.im.client_id,
   redirect_uri: window.location.origin + "/callback.html",
   scope: seal_config.im.scope,
